@@ -1,0 +1,19 @@
+<main class="board">
+  <div class="board__toolbar">
+    <div class="board__search">
+      <input type="text" placeholder="Buscar tarefa..." />
+    </div>
+    <button class="board__filter">Status</button>
+    <button class="board__filter">Categoria</button>
+    <button class="board__filter">Prioridade</button>
+    <button class="board__filter">Data</button>
+    <button class="board__new-task">+ Nova tarefa</button>
+  </div>
+
+  <div class="board__columns">
+    <app-column title="Backlog" color="var(--col-backlog)" [count]="0"></app-column>
+    <app-column title="To-do" color="var(--col-todo)" [count]="0"></app-column>
+    <app-column title="Doing" color="var(--col-doing)" [count]="0"></app-column>
+    <app-column title="Done" color="var(--col-done)" [count]="0"></app-column>
+  </div>
+</main>
