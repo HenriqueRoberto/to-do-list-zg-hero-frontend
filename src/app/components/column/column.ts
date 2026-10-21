@@ -1,13 +1,15 @@
 import { Component, input } from '@angular/core';
+import { Task } from '../../models/task';
+import { TaskCard } from '../task-card/task-card';
 
 @Component({
   selector: 'app-column',
-  imports: [],
+  imports: [TaskCard],
   templateUrl: './column.html',
   styleUrl: './column.css',
 })
 export class Column {
   readonly title = input.required<string>();
   readonly color = input.required<string>();
-  readonly count = input<number>(0);
+  readonly tasks = input<Task[]>([]);
 }
