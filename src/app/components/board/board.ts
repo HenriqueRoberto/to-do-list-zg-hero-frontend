@@ -34,4 +34,11 @@ export class Board {
       })
     );
   }
+  moverStatus(evento: { id: string; novoStatus: Status }) {
+  this.tasks.update(lista =>
+    lista.map(tarefa =>
+      tarefa.id === evento.id ? { ...tarefa, status: evento.novoStatus } : tarefa
+    )
+  );
+}
 }
