@@ -6,7 +6,7 @@
 
   <div class="column__cards">
     @for (task of tasks(); track task.id) {
-      <app-task-card [task]="task" />
+      <app-task-card [task]="task" (avancar)="avancarTask.emit($event)" />
     }
     <button class="column__add">+ Add card</button>
   </div>

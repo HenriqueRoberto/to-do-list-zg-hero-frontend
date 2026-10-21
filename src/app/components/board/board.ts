@@ -1,6 +1,6 @@
 import { Component, signal, computed } from '@angular/core';
 import { Column } from '../column/column';
-import { Task } from '../../models/task';
+import { Task, Status } from '../../models/task';
 
 @Component({
   selector: 'app-board',
@@ -22,4 +22,16 @@ export class Board {
   readonly todo = computed(() => this.tasks().filter(t => t.status === 'TODO'));
   readonly doing = computed(() => this.tasks().filter(t => t.status === 'DOING'));
   readonly done = computed(() => this.tasks().filter(t => t.status === 'DONE'));
+
+  avancarStatus(id: string) {
+    const ordem: Status[] = ['BACKLOG', 'TODO', 'DOING', 'DONE'];
+    this.tasks.update(lista =>
+      lista.map(tarefa => {
+        if (tarefa.id !== id) return tarefa;
+        const indice = ordem.indexOf(tarefa.status);
+        if (indice >= ordem.length - 1) return tarefa;
+        return { ...tarefa, status: ordem[indice + 1] };
+      })
+    );
+  }
 }

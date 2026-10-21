@@ -11,9 +11,9 @@
   </div>
 
   <div class="board__columns">
-    <app-column title="Backlog" color="var(--col-backlog)" [tasks]="backlog()" />
-    <app-column title="To-do" color="var(--col-todo)" [tasks]="todo()" />
-    <app-column title="Doing" color="var(--col-doing)" [tasks]="doing()" />
-    <app-column title="Done" color="var(--col-done)" [tasks]="done()" />
+    <app-column title="Backlog" color="var(--col-backlog)" [tasks]="backlog()" (avancarTask)="avancarStatus($event)" />
+    <app-column title="To-do" color="var(--col-todo)" [tasks]="todo()" (avancarTask)="avancarStatus($event)" />
+    <app-column title="Doing" color="var(--col-doing)" [tasks]="doing()" (avancarTask)="avancarStatus($event)" />
+    <app-column title="Done" color="var(--col-done)" [tasks]="done()" (avancarTask)="avancarStatus($event)" />
   </div>
 </main>

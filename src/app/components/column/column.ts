@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { Task } from '../../models/task';
 import { TaskCard } from '../task-card/task-card';
 
@@ -12,4 +12,5 @@ export class Column {
   readonly title = input.required<string>();
   readonly color = input.required<string>();
   readonly tasks = input<Task[]>([]);
+  readonly avancarTask = output<string>();
 }

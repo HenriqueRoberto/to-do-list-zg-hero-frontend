@@ -41,3 +41,35 @@
 .task-card__priority--p3 { background: rgba(136, 135, 128, 0.2); color: #b4b2a9; }
 .task-card__priority--p4 { background: rgba(136, 135, 128, 0.2); color: #b4b2a9; }
 .task-card__priority--p5 { background: rgba(136, 135, 128, 0.2); color: #b4b2a9; }
+
+
+
+.task-card {
+  position: relative;
+}
+
+.task-card__clock {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+.task-card__clock--branco { color: #c9c9c5; }
+.task-card__clock--amarelo { color: #ef9f27; }
+.task-card__clock--vermelho { color: #e24b4a; }
+.task-card__clock--verde { color: #1d9e75; }
+
+.task-card__radio {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 2px solid var(--text-faint);
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+}
+
+.task-card__radio--done {
+  background: #1d9e75;
+  border-color: #1d9e75;
+}
