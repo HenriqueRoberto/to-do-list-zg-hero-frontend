@@ -1,0 +1,13 @@
+<article class="task-card">
+  @if (task().categoria) {
+    <span class="task-card__category">{{ task().categoria }}</span>
+  }
+
+  <p class="task-card__title">{{ task().nome }}</p>
+
+  <div class="task-card__footer">
+    <span class="task-card__priority task-card__priority--p{{ task().prioridade }}">
+      P{{ task().prioridade }}
+    </span>
+  </div>
+</article>
