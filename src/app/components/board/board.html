@@ -1,7 +1,7 @@
 <main class="board">
   <div class="board__toolbar">
     <div class="board__search">
-      <input type="text" placeholder="Buscar tarefa..." />
+            <input type="text" placeholder="Buscar tarefa..." (input)="atualizarBusca($event)" />
     </div>
     <button class="board__filter">Status</button>
     <button class="board__filter">Categoria</button>

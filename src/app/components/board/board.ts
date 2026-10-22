@@ -19,13 +19,26 @@ export class Board {
     { id: '6', nome: 'Escolher tech stack', categoria: 'Planejamento', prioridade: 1, status: 'DONE' },
   ]);
 
-  readonly backlog = computed(() => this.tasks().filter(t => t.status === 'BACKLOG'));
-  readonly todo = computed(() => this.tasks().filter(t => t.status === 'TODO'));
-  readonly doing = computed(() => this.tasks().filter(t => t.status === 'DOING'));
-  readonly done = computed(() => this.tasks().filter(t => t.status === 'DONE'));
+  readonly busca = signal('');
+
+  private readonly tarefasFiltradas = computed(() => {
+    const texto = this.busca().trim().toLowerCase();
+    if (!texto) return this.tasks();
+    return this.tasks().filter(t => t.nome.toLowerCase().includes(texto));
+  });
+
+  readonly backlog = computed(() => this.tarefasFiltradas().filter(t => t.status === 'BACKLOG'));
+  readonly todo = computed(() => this.tarefasFiltradas().filter(t => t.status === 'TODO'));
+  readonly doing = computed(() => this.tarefasFiltradas().filter(t => t.status === 'DOING'));
+  readonly done = computed(() => this.tarefasFiltradas().filter(t => t.status === 'DONE'));
 
   readonly modalAberto = signal(false);
   readonly tarefaEditando = signal<Task | null>(null);
+
+  atualizarBusca(evento: Event) {
+    const alvo = evento.target as HTMLInputElement;
+    this.busca.set(alvo.value);
+  }
 
   abrirModal() {
     this.tarefaEditando.set(null);
