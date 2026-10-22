@@ -1,10 +1,11 @@
 import { Component, signal, computed } from '@angular/core';
 import { Column } from '../column/column';
+import { TaskModal, DadosTarefa } from '../task-modal/task-modal';
 import { Task, Status } from '../../models/task';
 
 @Component({
   selector: 'app-board',
-  imports: [Column],
+  imports: [Column, TaskModal],
   templateUrl: './board.html',
   styleUrl: './board.css',
 })
@@ -23,6 +24,22 @@ export class Board {
   readonly doing = computed(() => this.tasks().filter(t => t.status === 'DOING'));
   readonly done = computed(() => this.tasks().filter(t => t.status === 'DONE'));
 
+  readonly modalAberto = signal(false);
+
+  abrirModal() {
+    this.modalAberto.set(true);
+  }
+
+  fecharModal() {
+    this.modalAberto.set(false);
+  }
+
+  criarTarefa(dados: DadosTarefa) {
+    const nova: Task = { id: crypto.randomUUID(), ...dados };
+    this.tasks.update(lista => [...lista, nova]);
+    this.fecharModal();
+  }
+
   avancarStatus(id: string) {
     const ordem: Status[] = ['BACKLOG', 'TODO', 'DOING', 'DONE'];
     this.tasks.update(lista =>
@@ -34,11 +51,12 @@ export class Board {
       })
     );
   }
+
   moverStatus(evento: { id: string; novoStatus: Status }) {
-  this.tasks.update(lista =>
-    lista.map(tarefa =>
-      tarefa.id === evento.id ? { ...tarefa, status: evento.novoStatus } : tarefa
-    )
-  );
-}
+    this.tasks.update(lista =>
+      lista.map(tarefa =>
+        tarefa.id === evento.id ? { ...tarefa, status: evento.novoStatus } : tarefa
+      )
+    );
+  }
 }

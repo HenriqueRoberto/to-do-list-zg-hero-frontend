@@ -1,0 +1,45 @@
+<div class="modal-overlay" (click)="fechar.emit()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <h2 class="modal__title">Nova tarefa</h2>
+
+    <label class="modal__label">Nome
+      <input class="modal__input" [(ngModel)]="nome" placeholder="Nome da tarefa" />
+    </label>
+
+    <label class="modal__label">Descrição
+      <textarea class="modal__input" [(ngModel)]="descricao" rows="2"></textarea>
+    </label>
+
+    <label class="modal__label">Categoria
+      <input class="modal__input" [(ngModel)]="categoria" />
+    </label>
+
+    <label class="modal__label">Prioridade
+      <select class="modal__input" [(ngModel)]="prioridade">
+        <option [ngValue]="1">1</option>
+        <option [ngValue]="2">2</option>
+        <option [ngValue]="3">3</option>
+        <option [ngValue]="4">4</option>
+        <option [ngValue]="5">5</option>
+      </select>
+    </label>
+
+    <label class="modal__label">Status
+      <select class="modal__input" [(ngModel)]="status">
+        <option value="BACKLOG">Backlog</option>
+        <option value="TODO">To-do</option>
+        <option value="DOING">Doing</option>
+        <option value="DONE">Done</option>
+      </select>
+    </label>
+
+    <label class="modal__label">Data limite
+      <input class="modal__input" type="date" [(ngModel)]="dataLimite" />
+    </label>
+
+    <div class="modal__actions">
+      <button class="modal__btn modal__btn--cancel" (click)="fechar.emit()">Cancelar</button>
+      <button class="modal__btn modal__btn--save" (click)="aoSalvar()">Salvar</button>
+    </div>
+  </div>
+</div>

@@ -7,7 +7,7 @@
     <button class="board__filter">Categoria</button>
     <button class="board__filter">Prioridade</button>
     <button class="board__filter">Data</button>
-    <button class="board__new-task">+ Nova tarefa</button>
+    <button class="board__new-task" (click)="abrirModal()">+ Nova tarefa</button>
   </div>
 
   <div class="board__columns">
@@ -17,3 +17,7 @@
     <app-column title="Done" color="var(--col-done)" status="DONE" [tasks]="done()" (avancarTask)="avancarStatus($event)" (moverTask)="moverStatus($event)" />
   </div>
 </main>
+
+@if (modalAberto()) {
+  <app-task-modal (fechar)="fecharModal()" (salvar)="criarTarefa($event)" />
+}
