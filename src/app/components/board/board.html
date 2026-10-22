@@ -26,13 +26,13 @@
   </div>
 
   <div class="board__columns">
-    <app-column title="Backlog" color="var(--col-backlog)" status="BACKLOG" [tasks]="backlog()" (avancarTask)="avancarStatus($event)" (moverTask)="moverStatus($event)" (editarTask)="abrirEdicao($event)" />
-    <app-column title="To-do" color="var(--col-todo)" status="TODO" [tasks]="todo()" (avancarTask)="avancarStatus($event)" (moverTask)="moverStatus($event)" (editarTask)="abrirEdicao($event)" />
-    <app-column title="Doing" color="var(--col-doing)" status="DOING" [tasks]="doing()" (avancarTask)="avancarStatus($event)" (moverTask)="moverStatus($event)" (editarTask)="abrirEdicao($event)" />
-    <app-column title="Done" color="var(--col-done)" status="DONE" [tasks]="done()" (avancarTask)="avancarStatus($event)" (moverTask)="moverStatus($event)" (editarTask)="abrirEdicao($event)" />
+    <app-column title="Backlog" color="var(--col-backlog)" status="BACKLOG" [tasks]="backlog()" (avancarTask)="avancarStatus($event)" (moverTask)="moverStatus($event)" (editarTask)="abrirEdicao($event)" (adicionarTask)="abrirCriacaoComStatus($event)" />
+    <app-column title="To-do" color="var(--col-todo)" status="TODO" [tasks]="todo()" (avancarTask)="avancarStatus($event)" (moverTask)="moverStatus($event)" (editarTask)="abrirEdicao($event)" (adicionarTask)="abrirCriacaoComStatus($event)" />
+    <app-column title="Doing" color="var(--col-doing)" status="DOING" [tasks]="doing()" (avancarTask)="avancarStatus($event)" (moverTask)="moverStatus($event)" (editarTask)="abrirEdicao($event)" (adicionarTask)="abrirCriacaoComStatus($event)" />
+    <app-column title="Done" color="var(--col-done)" status="DONE" [tasks]="done()" (avancarTask)="avancarStatus($event)" (moverTask)="moverStatus($event)" (editarTask)="abrirEdicao($event)" (adicionarTask)="abrirCriacaoComStatus($event)" />
   </div>
 </main>
 
 @if (modalAberto()) {
-  <app-task-modal [tarefa]="tarefaEditando()" (fechar)="fecharModal()" (salvar)="salvarTarefa($event)" (deletar)="deletarTarefa()" />
+  <app-task-modal [tarefa]="tarefaEditando()" [statusInicial]="statusInicial()" (fechar)="fecharModal()" (salvar)="salvarTarefa($event)" (deletar)="deletarTarefa()" />
 }

@@ -1,7 +1,8 @@
-import { Component, signal, computed } from '@angular/core';
+import { Component, signal, computed, inject } from '@angular/core';
 import { Column } from '../column/column';
-import { TaskModal, DadosTarefa } from '../task-modal/task-modal';
-import { Task, Status } from '../../models/task';
+import { TaskModal } from '../task-modal/task-modal';
+import { Task, Status, DadosTarefa } from '../../models/task';
+import { BoardStore } from '../../service/board-store';
 
 @Component({
   selector: 'app-board',
@@ -10,14 +11,7 @@ import { Task, Status } from '../../models/task';
   styleUrl: './board.css',
 })
 export class Board {
-  readonly tasks = signal<Task[]>([
-    { id: '1', nome: 'Modelar entidade Task', categoria: 'Backend', prioridade: 1, status: 'BACKLOG' },
-    { id: '2', nome: 'Definir endpoints REST', categoria: 'API', prioridade: 2, status: 'BACKLOG' },
-    { id: '3', nome: 'Setup Spring Boot', categoria: 'Backend', prioridade: 2, status: 'TODO' },
-    { id: '4', nome: 'Setup Angular', categoria: 'Front', prioridade: 3, status: 'TODO' },
-    { id: '5', nome: 'Desenhar tela kanban', categoria: 'UI', prioridade: 3, status: 'DOING' },
-    { id: '6', nome: 'Escolher tech stack', categoria: 'Planejamento', prioridade: 1, status: 'DONE' },
-  ]);
+  private readonly store = inject(BoardStore);
 
   readonly busca = signal('');
   readonly filtroCategoria = signal('');
@@ -26,7 +20,7 @@ export class Board {
 
   readonly categoriasDisponiveis = computed(() => {
     const conjunto = new Set<string>();
-    for (const t of this.tasks()) {
+    for (const t of this.store.tarefasDoWorkspace()) {
       if (t.categoria) conjunto.add(t.categoria);
     }
     return Array.from(conjunto).sort();
@@ -38,7 +32,7 @@ export class Board {
     const prioridade = this.filtroPrioridade();
     const data = this.filtroData();
 
-    return this.tasks().filter(tarefa => {
+    return this.store.tarefasDoWorkspace().filter(tarefa => {
       if (texto && !tarefa.nome.toLowerCase().includes(texto)) return false;
       if (categoria && tarefa.categoria !== categoria) return false;
       if (prioridade !== null && tarefa.prioridade !== prioridade) return false;
@@ -54,6 +48,7 @@ export class Board {
 
   readonly modalAberto = signal(false);
   readonly tarefaEditando = signal<Task | null>(null);
+  readonly statusInicial = signal<Status | null>(null);
 
   atualizarBusca(evento: Event) {
     this.busca.set((evento.target as HTMLInputElement).value);
@@ -74,27 +69,34 @@ export class Board {
 
   abrirModal() {
     this.tarefaEditando.set(null);
+    this.statusInicial.set(null);
+    this.modalAberto.set(true);
+  }
+
+  abrirCriacaoComStatus(status: Status) {
+    this.tarefaEditando.set(null);
+    this.statusInicial.set(status);
     this.modalAberto.set(true);
   }
 
   abrirEdicao(tarefa: Task) {
     this.tarefaEditando.set(tarefa);
+    this.statusInicial.set(null);
     this.modalAberto.set(true);
   }
 
   fecharModal() {
     this.modalAberto.set(false);
     this.tarefaEditando.set(null);
+    this.statusInicial.set(null);
   }
 
   salvarTarefa(dados: DadosTarefa) {
     const editando = this.tarefaEditando();
     if (editando) {
-      this.tasks.update(lista =>
-        lista.map(t => t.id === editando.id ? { ...t, ...dados } : t)
-      );
+      this.store.editarTarefa(editando.id, dados);
     } else {
-      this.tasks.update(lista => [...lista, { id: crypto.randomUUID(), ...dados }]);
+      this.store.criarTarefa(dados);
     }
     this.fecharModal();
   }
@@ -102,28 +104,16 @@ export class Board {
   deletarTarefa() {
     const editando = this.tarefaEditando();
     if (editando) {
-      this.tasks.update(lista => lista.filter(t => t.id !== editando.id));
+      this.store.deletarTarefa(editando.id);
     }
     this.fecharModal();
   }
 
   avancarStatus(id: string) {
-    const ordem: Status[] = ['BACKLOG', 'TODO', 'DOING', 'DONE'];
-    this.tasks.update(lista =>
-      lista.map(tarefa => {
-        if (tarefa.id !== id) return tarefa;
-        const indice = ordem.indexOf(tarefa.status);
-        if (indice >= ordem.length - 1) return tarefa;
-        return { ...tarefa, status: ordem[indice + 1] };
-      })
-    );
+    this.store.avancarStatus(id);
   }
 
   moverStatus(evento: { id: string; novoStatus: Status }) {
-    this.tasks.update(lista =>
-      lista.map(tarefa =>
-        tarefa.id === evento.id ? { ...tarefa, status: evento.novoStatus } : tarefa
-      )
-    );
+    this.store.moverStatus(evento.id, evento.novoStatus);
   }
 }

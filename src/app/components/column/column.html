@@ -15,6 +15,6 @@
         <app-task-card [task]="task" (avancar)="avancarTask.emit($event)" (editar)="editarTask.emit($event)" />
       </div>
     }
-    <button class="column__add">+ Add card</button>
+    <button class="column__add" (click)="adicionarTask.emit(status())">+ Add card</button>
   </div>
 </section>

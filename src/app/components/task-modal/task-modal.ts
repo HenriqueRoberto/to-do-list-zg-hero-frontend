@@ -1,15 +1,6 @@
 import { Component, input, output, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Task, Status } from '../../models/task';
-
-export interface DadosTarefa {
-  nome: string;
-  descricao?: string;
-  categoria?: string;
-  prioridade: number;
-  status: Status;
-  dataLimite?: string;
-}
+import { Task, Status, DadosTarefa } from '../../models/task';
 
 @Component({
   selector: 'app-task-modal',
@@ -19,6 +10,7 @@ export interface DadosTarefa {
 })
 export class TaskModal implements OnInit {
   readonly tarefa = input<Task | null>(null);
+  readonly statusInicial = input<Status | null>(null);
   readonly fechar = output<void>();
   readonly salvar = output<DadosTarefa>();
   readonly deletar = output<void>();
@@ -41,6 +33,8 @@ export class TaskModal implements OnInit {
       this.prioridade = t.prioridade;
       this.status = t.status;
       this.dataLimite = t.dataLimite ?? '';
+    } else if (this.statusInicial()) {
+      this.status = this.statusInicial()!;
     }
   }
 
