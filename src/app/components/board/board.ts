@@ -20,11 +20,31 @@ export class Board {
   ]);
 
   readonly busca = signal('');
+  readonly filtroCategoria = signal('');
+  readonly filtroPrioridade = signal<number | null>(null);
+  readonly filtroData = signal('');
+
+  readonly categoriasDisponiveis = computed(() => {
+    const conjunto = new Set<string>();
+    for (const t of this.tasks()) {
+      if (t.categoria) conjunto.add(t.categoria);
+    }
+    return Array.from(conjunto).sort();
+  });
 
   private readonly tarefasFiltradas = computed(() => {
     const texto = this.busca().trim().toLowerCase();
-    if (!texto) return this.tasks();
-    return this.tasks().filter(t => t.nome.toLowerCase().includes(texto));
+    const categoria = this.filtroCategoria();
+    const prioridade = this.filtroPrioridade();
+    const data = this.filtroData();
+
+    return this.tasks().filter(tarefa => {
+      if (texto && !tarefa.nome.toLowerCase().includes(texto)) return false;
+      if (categoria && tarefa.categoria !== categoria) return false;
+      if (prioridade !== null && tarefa.prioridade !== prioridade) return false;
+      if (data && (!tarefa.dataLimite || tarefa.dataLimite > data)) return false;
+      return true;
+    });
   });
 
   readonly backlog = computed(() => this.tarefasFiltradas().filter(t => t.status === 'BACKLOG'));
@@ -36,8 +56,20 @@ export class Board {
   readonly tarefaEditando = signal<Task | null>(null);
 
   atualizarBusca(evento: Event) {
-    const alvo = evento.target as HTMLInputElement;
-    this.busca.set(alvo.value);
+    this.busca.set((evento.target as HTMLInputElement).value);
+  }
+
+  mudarCategoria(evento: Event) {
+    this.filtroCategoria.set((evento.target as HTMLSelectElement).value);
+  }
+
+  mudarPrioridade(evento: Event) {
+    const valor = (evento.target as HTMLSelectElement).value;
+    this.filtroPrioridade.set(valor ? Number(valor) : null);
+  }
+
+  mudarData(evento: Event) {
+    this.filtroData.set((evento.target as HTMLInputElement).value);
   }
 
   abrirModal() {

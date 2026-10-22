@@ -64,3 +64,8 @@
   gap: 2rem;
   flex: 1;
 }
+
+.board__filter option {
+  background: var(--bg-sidebar);
+  color: var(--text-primary);
+}
