@@ -10,6 +10,7 @@ import { Task, Status } from '../../models/task';
 export class TaskCard {
   readonly task = input.required<Task>();
   readonly avancar = output<string>();
+  readonly editar = output<Task>();
 
   readonly corRelogio = computed(() => {
     const tarefa = this.task();
