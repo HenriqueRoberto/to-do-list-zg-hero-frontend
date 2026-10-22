@@ -1,12 +1,27 @@
 <main class="board">
   <div class="board__toolbar">
     <div class="board__search">
-      <input type="text" placeholder="Buscar tarefa..." />
+      <input type="text" placeholder="Buscar tarefa..." (input)="atualizarBusca($event)" />
     </div>
-    <button class="board__filter">Status</button>
-    <button class="board__filter">Categoria</button>
-    <button class="board__filter">Prioridade</button>
-    <button class="board__filter">Data</button>
+
+    <select class="board__filter" (change)="mudarCategoria($event)">
+      <option value="">Categoria</option>
+      @for (categoria of categoriasDisponiveis(); track categoria) {
+        <option value="{{ categoria }}">{{ categoria }}</option>
+      }
+    </select>
+
+    <select class="board__filter" (change)="mudarPrioridade($event)">
+      <option value="">Prioridade</option>
+      <option value="1">P1</option>
+      <option value="2">P2</option>
+      <option value="3">P3</option>
+      <option value="4">P4</option>
+      <option value="5">P5</option>
+    </select>
+
+    <input type="date" class="board__filter" (input)="mudarData($event)" />
+
     <button class="board__new-task" (click)="abrirModal()">+ Nova tarefa</button>
   </div>
 

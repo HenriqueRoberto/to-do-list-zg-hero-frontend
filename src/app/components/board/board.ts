@@ -19,13 +19,58 @@ export class Board {
     { id: '6', nome: 'Escolher tech stack', categoria: 'Planejamento', prioridade: 1, status: 'DONE' },
   ]);
 
-  readonly backlog = computed(() => this.tasks().filter(t => t.status === 'BACKLOG'));
-  readonly todo = computed(() => this.tasks().filter(t => t.status === 'TODO'));
-  readonly doing = computed(() => this.tasks().filter(t => t.status === 'DOING'));
-  readonly done = computed(() => this.tasks().filter(t => t.status === 'DONE'));
+  readonly busca = signal('');
+  readonly filtroCategoria = signal('');
+  readonly filtroPrioridade = signal<number | null>(null);
+  readonly filtroData = signal('');
+
+  readonly categoriasDisponiveis = computed(() => {
+    const conjunto = new Set<string>();
+    for (const t of this.tasks()) {
+      if (t.categoria) conjunto.add(t.categoria);
+    }
+    return Array.from(conjunto).sort();
+  });
+
+  private readonly tarefasFiltradas = computed(() => {
+    const texto = this.busca().trim().toLowerCase();
+    const categoria = this.filtroCategoria();
+    const prioridade = this.filtroPrioridade();
+    const data = this.filtroData();
+
+    return this.tasks().filter(tarefa => {
+      if (texto && !tarefa.nome.toLowerCase().includes(texto)) return false;
+      if (categoria && tarefa.categoria !== categoria) return false;
+      if (prioridade !== null && tarefa.prioridade !== prioridade) return false;
+      if (data && (!tarefa.dataLimite || tarefa.dataLimite > data)) return false;
+      return true;
+    });
+  });
+
+  readonly backlog = computed(() => this.tarefasFiltradas().filter(t => t.status === 'BACKLOG'));
+  readonly todo = computed(() => this.tarefasFiltradas().filter(t => t.status === 'TODO'));
+  readonly doing = computed(() => this.tarefasFiltradas().filter(t => t.status === 'DOING'));
+  readonly done = computed(() => this.tarefasFiltradas().filter(t => t.status === 'DONE'));
 
   readonly modalAberto = signal(false);
   readonly tarefaEditando = signal<Task | null>(null);
+
+  atualizarBusca(evento: Event) {
+    this.busca.set((evento.target as HTMLInputElement).value);
+  }
+
+  mudarCategoria(evento: Event) {
+    this.filtroCategoria.set((evento.target as HTMLSelectElement).value);
+  }
+
+  mudarPrioridade(evento: Event) {
+    const valor = (evento.target as HTMLSelectElement).value;
+    this.filtroPrioridade.set(valor ? Number(valor) : null);
+  }
+
+  mudarData(evento: Event) {
+    this.filtroData.set((evento.target as HTMLInputElement).value);
+  }
 
   abrirModal() {
     this.tarefaEditando.set(null);
