@@ -48,6 +48,7 @@ export class Board {
 
   readonly modalAberto = signal(false);
   readonly tarefaEditando = signal<Task | null>(null);
+  readonly statusInicial = signal<Status | null>(null);
 
   atualizarBusca(evento: Event) {
     this.busca.set((evento.target as HTMLInputElement).value);
@@ -68,17 +69,26 @@ export class Board {
 
   abrirModal() {
     this.tarefaEditando.set(null);
+    this.statusInicial.set(null);
+    this.modalAberto.set(true);
+  }
+
+  abrirCriacaoComStatus(status: Status) {
+    this.tarefaEditando.set(null);
+    this.statusInicial.set(status);
     this.modalAberto.set(true);
   }
 
   abrirEdicao(tarefa: Task) {
     this.tarefaEditando.set(tarefa);
+    this.statusInicial.set(null);
     this.modalAberto.set(true);
   }
 
   fecharModal() {
     this.modalAberto.set(false);
     this.tarefaEditando.set(null);
+    this.statusInicial.set(null);
   }
 
   salvarTarefa(dados: DadosTarefa) {
