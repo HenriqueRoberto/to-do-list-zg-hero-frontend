@@ -17,6 +17,12 @@ export class Sidebar {
   readonly criandoWorkspace = signal(false);
   nomeNovoWorkspace = '';
 
+  readonly temaClaro = signal(this.lerTemaSalvo());
+
+  constructor() {
+    this.aplicarTema(this.temaClaro());
+  }
+
   selecionar(id: string) {
     this.store.selecionarWorkspace(id);
   }
@@ -32,5 +38,30 @@ export class Sidebar {
     }
     this.nomeNovoWorkspace = '';
     this.criandoWorkspace.set(false);
+  }
+
+  definirTema(claro: boolean) {
+    this.temaClaro.set(claro);
+    this.aplicarTema(claro);
+    try {
+      localStorage.setItem('tema', claro ? 'claro' : 'escuro');
+    } catch {}
+  }
+
+  private lerTemaSalvo(): boolean {
+    try {
+      return localStorage.getItem('tema') === 'claro';
+    } catch {
+      return false;
+    }
+  }
+
+  private aplicarTema(claro: boolean) {
+    const raiz = document.documentElement;
+    if (claro) {
+      raiz.setAttribute('data-theme', 'light');
+    } else {
+      raiz.removeAttribute('data-theme');
+    }
   }
 }

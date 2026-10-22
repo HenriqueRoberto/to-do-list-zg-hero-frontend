@@ -36,11 +36,11 @@
   font-weight: 500;
 }
 
-.task-card__priority--p1 { background: rgba(226, 75, 74, 0.2); color: #e24b4a; }
-.task-card__priority--p2 { background: rgba(239, 159, 39, 0.2); color: #ef9f27; }
-.task-card__priority--p3 { background: rgba(136, 135, 128, 0.2); color: #b4b2a9; }
-.task-card__priority--p4 { background: rgba(136, 135, 128, 0.2); color: #b4b2a9; }
-.task-card__priority--p5 { background: rgba(136, 135, 128, 0.2); color: #b4b2a9; }
+.task-card__priority--p1 { background: var(--priority-bg-p1); color: var(--priority-p1); }
+.task-card__priority--p2 { background: var(--priority-bg-p2); color: var(--priority-p2); }
+.task-card__priority--p3 { background: var(--priority-bg-p3); color: var(--priority-p3); }
+.task-card__priority--p4 { background: var(--priority-bg-p4); color: var(--priority-p4); }
+.task-card__priority--p5 { background: var(--priority-bg-p5); color: var(--priority-p5); }
 
 
 
