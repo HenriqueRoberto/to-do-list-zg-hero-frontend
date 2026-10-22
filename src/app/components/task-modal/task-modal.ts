@@ -1,15 +1,6 @@
 import { Component, input, output, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Task, Status } from '../../models/task';
-
-export interface DadosTarefa {
-  nome: string;
-  descricao?: string;
-  categoria?: string;
-  prioridade: number;
-  status: Status;
-  dataLimite?: string;
-}
+import { Task, Status, DadosTarefa } from '../../models/task';
 
 @Component({
   selector: 'app-task-modal',

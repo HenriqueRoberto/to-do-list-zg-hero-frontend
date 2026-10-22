@@ -79,3 +79,13 @@
 .workspace--new {
   color: var(--text-faint);
 }
+
+.workspace__input {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  padding: 7px 10px;
+  color: var(--text-primary);
+  font-size: 13px;
+  font-family: inherit;
+}

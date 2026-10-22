@@ -9,8 +9,23 @@
 
   <nav class="sidebar__workspaces">
     <p class="sidebar__section-label">Workspaces</p>
-    <button class="workspace workspace--active">Pessoal</button>
-    <button class="workspace">Trabalho</button>
-    <button class="workspace workspace--new">+ Novo</button>
+
+    @for (ws of workspaces(); track ws.id) {
+      <button class="workspace"
+              [class.workspace--active]="ws.id === workspaceAtivoId()"
+              (click)="selecionar(ws.id)">
+        {{ ws.nome }}
+      </button>
+    }
+
+    @if (criandoWorkspace()) {
+      <input class="workspace__input"
+             [(ngModel)]="nomeNovoWorkspace"
+             (keyup.enter)="confirmarCriacao()"
+             (blur)="confirmarCriacao()"
+             placeholder="Nome do workspace" />
+    } @else {
+      <button class="workspace workspace--new" (click)="abrirCriacao()">+ Novo</button>
+    }
   </nav>
 </aside>
