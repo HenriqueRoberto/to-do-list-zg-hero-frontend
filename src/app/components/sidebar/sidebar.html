@@ -28,4 +28,13 @@
       <button class="workspace workspace--new" (click)="abrirCriacao()">+ Novo</button>
     }
   </nav>
+
+  <div class="theme-toggle">
+    <button class="theme-toggle__btn"
+            [class.theme-toggle__btn--active]="!temaClaro()"
+            (click)="definirTema(false)">Escuro</button>
+    <button class="theme-toggle__btn"
+            [class.theme-toggle__btn--active]="temaClaro()"
+            (click)="definirTema(true)">Claro</button>
+  </div>
 </aside>

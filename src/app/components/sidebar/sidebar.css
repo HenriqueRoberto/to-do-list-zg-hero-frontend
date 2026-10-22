@@ -89,3 +89,29 @@
   font-size: 13px;
   font-family: inherit;
 }
+
+
+.theme-toggle {
+  margin-top: auto;
+  display: flex;
+  gap: 2px;
+  background: var(--bg-elevated);
+  border-radius: 8px;
+  padding: 2px;
+}
+
+.theme-toggle__btn {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 11px;
+  padding: 6px 0;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.theme-toggle__btn--active {
+  background: var(--accent);
+  color: #fff;
+}
