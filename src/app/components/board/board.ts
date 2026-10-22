@@ -25,18 +25,40 @@ export class Board {
   readonly done = computed(() => this.tasks().filter(t => t.status === 'DONE'));
 
   readonly modalAberto = signal(false);
+  readonly tarefaEditando = signal<Task | null>(null);
 
   abrirModal() {
+    this.tarefaEditando.set(null);
+    this.modalAberto.set(true);
+  }
+
+  abrirEdicao(tarefa: Task) {
+    this.tarefaEditando.set(tarefa);
     this.modalAberto.set(true);
   }
 
   fecharModal() {
     this.modalAberto.set(false);
+    this.tarefaEditando.set(null);
   }
 
-  criarTarefa(dados: DadosTarefa) {
-    const nova: Task = { id: crypto.randomUUID(), ...dados };
-    this.tasks.update(lista => [...lista, nova]);
+  salvarTarefa(dados: DadosTarefa) {
+    const editando = this.tarefaEditando();
+    if (editando) {
+      this.tasks.update(lista =>
+        lista.map(t => t.id === editando.id ? { ...t, ...dados } : t)
+      );
+    } else {
+      this.tasks.update(lista => [...lista, { id: crypto.randomUUID(), ...dados }]);
+    }
+    this.fecharModal();
+  }
+
+  deletarTarefa() {
+    const editando = this.tarefaEditando();
+    if (editando) {
+      this.tasks.update(lista => lista.filter(t => t.id !== editando.id));
+    }
     this.fecharModal();
   }
 

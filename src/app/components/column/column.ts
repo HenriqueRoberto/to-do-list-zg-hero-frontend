@@ -16,6 +16,7 @@ export class Column {
   readonly tasks = input<Task[]>([]);
   readonly avancarTask = output<string>();
   readonly moverTask = output<{ id: string; novoStatus: Status }>();
+  readonly editarTask = output<Task>();
 
   aoSoltar(evento: CdkDragDrop<Task[]>) {
     if (evento.previousContainer === evento.container) {
