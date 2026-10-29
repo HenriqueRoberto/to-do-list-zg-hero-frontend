@@ -1,59 +1,51 @@
-# ToDoListZgHeroFrontend
+# To-Do List ZG Hero - Front-end
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.26.
+Interface web para gerenciamento de tarefas em modelo Kanban (Backlog, To-do, Doing, Done), com suporte a múltiplos workspaces. Consome a API REST do back-end.
 
-## Development server
+## Back-end
 
-To start a local development server, run:
+O back-end (Java + Spring Boot) fica em um repositório separado e precisa estar rodando para a aplicação funcionar:
+
+- Front-end: `http://localhost:4200` (este repositório)
+- Back-end: `http://localhost:8080`
+
+Repositório do back: https://github.com/HenriqueRoberto/to-do-list-zg-hero-backend
+
+## Tecnologias
+
+- Angular
+- TypeScript
+- Angular CDK (arrastar e soltar)
+- CSS
+
+## Funcionalidades
+
+- Quadro Kanban com 4 colunas fixas: Backlog, To-do, Doing, Done
+- Criar, editar e excluir tarefas
+- Arrastar tarefas entre colunas
+- Avançar o status da tarefa pelo indicador no card
+- Indicador de prazo: muda de cor conforme a proximidade da data limite
+- Múltiplos workspaces, com troca e criação
+- Busca por nome e filtros por categoria, prioridade e data
+- Tema claro e escuro
+
+## Como rodar
+
+Com o back-end já rodando:
 
 ```bash
+npm install
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+A aplicação fica disponível em `http://localhost:4200`.
 
-## Code scaffolding
+## Estrutura
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- **models** — interfaces `Task` e `Workspace`
+- **service** — comunicação com a API (`task-api`, `workspace-api`) e estado da aplicação (`board-store`)
+- **components** — `sidebar`, `board`, `column`, `task-card`, `task-modal`
 
-```bash
-ng generate component component-name
-```
+## Armazenamento local
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Apenas preferências de interface ficam no navegador (filtros aplicados e tema escolhido). Todos os dados de tarefas e workspaces vêm do back-end.
