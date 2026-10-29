@@ -13,10 +13,10 @@ import { BoardStore } from '../../service/board-store';
 export class Board {
   private readonly store = inject(BoardStore);
 
-  readonly busca = signal('');
-  readonly filtroCategoria = signal('');
-  readonly filtroPrioridade = signal<number | null>(null);
-  readonly filtroData = signal('');
+  readonly busca = signal(this.lerFiltro('busca'));
+  readonly filtroCategoria = signal(this.lerFiltro('categoria'));
+  readonly filtroPrioridade = signal<number | null>(this.lerFiltroNumero('prioridade'));
+  readonly filtroData = signal(this.lerFiltro('data'));
 
   readonly categoriasDisponiveis = computed(() => {
     const conjunto = new Set<string>();
@@ -51,20 +51,46 @@ export class Board {
   readonly statusInicial = signal<Status | null>(null);
 
   atualizarBusca(evento: Event) {
-    this.busca.set((evento.target as HTMLInputElement).value);
+    const valor = (evento.target as HTMLInputElement).value;
+    this.busca.set(valor);
+    this.salvarFiltro('busca', valor);
   }
 
   mudarCategoria(evento: Event) {
-    this.filtroCategoria.set((evento.target as HTMLSelectElement).value);
+    const valor = (evento.target as HTMLSelectElement).value;
+    this.filtroCategoria.set(valor);
+    this.salvarFiltro('categoria', valor);
   }
 
   mudarPrioridade(evento: Event) {
     const valor = (evento.target as HTMLSelectElement).value;
     this.filtroPrioridade.set(valor ? Number(valor) : null);
+    this.salvarFiltro('prioridade', valor);
   }
 
   mudarData(evento: Event) {
-    this.filtroData.set((evento.target as HTMLInputElement).value);
+    const valor = (evento.target as HTMLInputElement).value;
+    this.filtroData.set(valor);
+    this.salvarFiltro('data', valor);
+  }
+
+  private lerFiltro(chave: string): string {
+    try {
+      return localStorage.getItem(`filtro.${chave}`) ?? '';
+    } catch {
+      return '';
+    }
+  }
+
+  private lerFiltroNumero(chave: string): number | null {
+    const valor = this.lerFiltro(chave);
+    return valor ? Number(valor) : null;
+  }
+
+  private salvarFiltro(chave: string, valor: string) {
+    try {
+      localStorage.setItem(`filtro.${chave}`, valor);
+    } catch {}
   }
 
   abrirModal() {
