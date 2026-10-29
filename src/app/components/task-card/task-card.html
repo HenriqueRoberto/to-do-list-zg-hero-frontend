@@ -1,0 +1,26 @@
+<article class="task-card" (click)="editar.emit(task())">
+  <svg class="task-card__clock task-card__clock--{{ corRelogio() }}"
+       width="14" height="14" viewBox="0 0 24 24" fill="none"
+       stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+       aria-label="Prazo">
+    <circle cx="12" cy="12" r="9" />
+    <polyline points="12 7 12 12 15 14" />
+  </svg>
+
+  @if (task().categoria) {
+    <span class="task-card__category">{{ task().categoria }}</span>
+  }
+
+  <p class="task-card__title">{{ task().nome }}</p>
+
+  <div class="task-card__footer">
+    <span class="task-card__priority task-card__priority--p{{ task().prioridade }}">
+      P{{ task().prioridade }}
+    </span>
+
+    <button class="task-card__radio"
+            [class.task-card__radio--done]="task().status === 'DONE'"
+            (click)="$event.stopPropagation(); avancar.emit(task().id)"
+            aria-label="Avançar status"></button>
+  </div>
+</article>

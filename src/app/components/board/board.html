@@ -1,0 +1,38 @@
+<main class="board">
+  <div class="board__toolbar">
+    <div class="board__search">
+      <input type="text" placeholder="Buscar tarefa..." [value]="busca()" (input)="atualizarBusca($event)" />
+    </div>
+
+    <select class="board__filter" [value]="filtroCategoria()" (change)="mudarCategoria($event)">
+      <option value="">Categoria</option>
+      @for (categoria of categoriasDisponiveis(); track categoria) {
+        <option value="{{ categoria }}">{{ categoria }}</option>
+      }
+    </select>
+
+    <select class="board__filter" [value]="filtroPrioridade() ?? ''" (change)="mudarPrioridade($event)">
+      <option value="">Prioridade</option>
+      <option value="1">P1</option>
+      <option value="2">P2</option>
+      <option value="3">P3</option>
+      <option value="4">P4</option>
+      <option value="5">P5</option>
+    </select>
+
+    <input type="date" class="board__filter" [value]="filtroData()" (input)="mudarData($event)" />
+
+    <button class="board__new-task" (click)="abrirModal()">+ Nova tarefa</button>
+  </div>
+
+  <div class="board__columns">
+    <app-column title="Backlog" color="var(--col-backlog)" status="BACKLOG" [tasks]="backlog()" (avancarTask)="avancarStatus($event)" (moverTask)="moverStatus($event)" (editarTask)="abrirEdicao($event)" (adicionarTask)="abrirCriacaoComStatus($event)" />
+    <app-column title="To-do" color="var(--col-todo)" status="TODO" [tasks]="todo()" (avancarTask)="avancarStatus($event)" (moverTask)="moverStatus($event)" (editarTask)="abrirEdicao($event)" (adicionarTask)="abrirCriacaoComStatus($event)" />
+    <app-column title="Doing" color="var(--col-doing)" status="DOING" [tasks]="doing()" (avancarTask)="avancarStatus($event)" (moverTask)="moverStatus($event)" (editarTask)="abrirEdicao($event)" (adicionarTask)="abrirCriacaoComStatus($event)" />
+    <app-column title="Done" color="var(--col-done)" status="DONE" [tasks]="done()" (avancarTask)="avancarStatus($event)" (moverTask)="moverStatus($event)" (editarTask)="abrirEdicao($event)" (adicionarTask)="abrirCriacaoComStatus($event)" />
+  </div>
+</main>
+
+@if (modalAberto()) {
+  <app-task-modal [tarefa]="tarefaEditando()" [statusInicial]="statusInicial()" (fechar)="fecharModal()" (salvar)="salvarTarefa($event)" (deletar)="deletarTarefa()" />
+}

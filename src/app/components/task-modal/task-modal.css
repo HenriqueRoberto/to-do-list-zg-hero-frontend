@@ -1,0 +1,168 @@
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.modal {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  width: 440px;
+  max-width: 92vw;
+  overflow: hidden;
+}
+
+.modal__header {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 16px 18px 0;
+}
+
+.modal__radio {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid var(--text-faint);
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+.modal__radio--done {
+  background: #1d9e75;
+  border-color: #1d9e75;
+}
+
+.modal__name {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: 17px;
+  font-weight: 500;
+  font-family: inherit;
+  padding: 2px 0;
+}
+
+.modal__name:focus {
+  outline: none;
+  border-bottom: 1px solid var(--accent);
+}
+
+.modal__close {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.modal__body {
+  padding: 16px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.modal__row {
+  display: flex;
+  gap: 8px;
+}
+
+.modal__field {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.modal__field--small {
+  flex: 0 0 100px;
+}
+
+.modal__field-label {
+  font-size: 10px;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.modal__input {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+  padding: 7px 10px;
+  color: var(--text-primary);
+  font-size: 12px;
+  font-family: inherit;
+}
+
+.modal__input option {
+  background: var(--bg-sidebar);
+  color: var(--text-primary);
+}
+
+.modal__desc {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.modal__textarea {
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.modal__actions {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 18px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.modal__btn {
+  padding: 7px 16px;
+  border-radius: 8px;
+  font-size: 12px;
+  cursor: pointer;
+  border: 1px solid var(--border-subtle);
+}
+
+.modal__btn--delete {
+  background: transparent;
+  color: #e24b4a;
+  border-color: #e24b4a;
+  margin-right: auto;
+}
+
+.modal__btn--cancel {
+  background: transparent;
+  color: var(--text-secondary);
+}
+
+.modal__btn--save {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+}
+
+
+.modal__confirm-text {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-right: auto;
+}
+
+.modal__btn--delete-confirm {
+  background: #e24b4a;
+  color: #fff;
+  border: none;
+}

@@ -1,0 +1,49 @@
+:host {
+  flex: 1;
+  min-width: 0;
+}
+
+.column {
+  flex: 1;
+  min-width: 0;
+}
+
+.column__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.8rem;
+  border-radius: 1rem;
+  margin-bottom: 0.8rem;
+}
+
+.column__title {
+  font-size: var(--font-size-default);
+  font-weight: 900;
+  color: #fff;
+}
+
+.column__count {
+  font-size: var(--font-size-span);
+  background: rgba(255, 255, 255, 0.3);
+  color: #fff;
+  padding: 0.1rem 0.7rem;
+  border-radius: 99.9rem;
+}
+
+.column__cards {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.column__add {
+  width: 100%;
+  font-size: var(--font-size-caption);
+  padding: 0.7rem;
+  border: 0.1rem dashed var(--column-add-border);
+  background: transparent;
+  color: var(--column-add-text);
+  border-radius: 0.8rem;
+  cursor: pointer;
+}

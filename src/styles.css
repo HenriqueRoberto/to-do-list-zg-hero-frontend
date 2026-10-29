@@ -1,1 +1,99 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --bg-app: #0d0d0d;
+  --bg-sidebar: #141414;
+  --bg-surface: #1c1c1c;
+  --bg-elevated: rgba(255, 255, 255, 0.06);
+
+  --border-subtle: rgba(255, 255, 255, 0.08);
+
+  --text-primary: #f2f2f0;
+  --text-secondary: #5d5d5d;
+  --text-muted: #8a8a86;
+  --text-faint: #6b6b67;
+
+  --accent: #378add;
+  --logo: #e8613a;
+
+  --font-size-default: 1.4rem;
+  --font-size-subtitle: 1.2rem;
+  --font-size-caption: 1.1rem;
+  --font-size-span: 1rem;
+
+
+  --priority-p1: #e24b4a;
+  --priority-bg-p1: rgba(226, 75, 74, 0.2);
+  --priority-p2: #ef9f27;
+  --priority-bg-p2: rgba(239, 159, 39, 0.2);
+  --priority-p3: #c17aff;
+  --priority-bg-p3: rgb(133 101 255 / 23%);
+  --priority-p4: #2db8e3;
+  --priority-bg-p4: rgb(71 172 189 / 20%);
+  --priority-p5: #1ef107;
+  --priority-bg-p5: rgb(147 219 153 / 20%);
+
+  --col-backlog: #d85a30;
+  --col-todo: #ba7517;
+  --col-doing: #7f77dd;
+  --col-done: #1d9e75;
+
+  --column-add-text: #6b6b67;
+  --column-add-border: rgba(255, 255, 255, 0.15);
+  --column-count: rgba(255, 255, 255, 0.3);
+}
+
+
+:root[data-theme="light"] {
+  --bg-app: #f4f4f2;
+  --bg-sidebar: #ffffff;
+  --bg-surface: #ffffff;
+  --bg-elevated: rgba(0, 0, 0, 0.04);
+  --border-subtle: rgb(0 0 0 / 15%);
+  --text-primary: #1c1c1c;
+  --text-secondary: #373535;
+  --text-muted: #5b5b5b;
+  --text-faint: #4b4b4b;
+
+  --priority-p1: #c52726;
+  --priority-bg-p1: rgb(237 62 61 / 20%);
+  --priority-p2: #ff8400;
+  --priority-bg-p2: rgb(217 186 20 / 31%);
+  --priority-p3: #8800ff;
+  --priority-bg-p3: rgb(113 95 181 / 20%);
+  --priority-p4: #008db9;
+  --priority-bg-p4: rgb(97 224 245 / 20%);
+  --priority-p5: #0b7300;
+  --priority-bg-p5: rgb(0 255 22 / 20%);
+
+  --col-backlog: #ef721a;
+  --col-todo: #edbf0f;
+  --col-doing: #6961c9;
+  --col-done: #199d4f;
+
+  --column-add-text: #3b3b3b;
+  --column-add-border: rgba(0, 0, 0, 0.452);
+  --column-count: rgb(61 60 60 / 31%);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  font-size: 62.5%;
+  height: 100%;
+  width: 100%;
+}
+
+app-root {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+}
+
+body {
+  margin: 0;
+  background: var(--bg-app);
+  font-family: "Inter", -apple-system, sans-serif;
+}

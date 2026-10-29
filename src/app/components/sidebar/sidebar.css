@@ -1,0 +1,117 @@
+.sidebar {
+  width: 20rem;
+  height: 100vh;
+  background: var(--bg-sidebar);
+  border-right: 0.1rem solid var(--border-subtle);
+  padding: 2.2rem 1.4rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.sidebar__header {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.sidebar__logo {
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 0.8rem;
+  background: var(--logo);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: var(--font-size-default);
+}
+
+.sidebar__title {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: var(--font-size-default);
+  font-weight: 500;
+}
+
+.sidebar__subtitle {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--font-size-subtitle);
+}
+
+.sidebar__section-label {
+  color: var(--text-faint);
+  font-size: var(--font-size-caption);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin: 0 0 0.8rem;
+}
+
+.sidebar__workspaces {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.workspace {
+  text-align: left;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: var(--font-size-default);
+  padding: 0.8rem 1rem;
+  border-radius: 0.6rem;
+  cursor: pointer;
+}
+
+.workspace:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.workspace--active {
+  background: var(--border-subtle);
+  color: var(--text-primary);
+}
+
+.workspace--new {
+  color: var(--text-faint);
+}
+
+.workspace__input {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  padding: 7px 10px;
+  color: var(--text-primary);
+  font-size: 13px;
+  font-family: inherit;
+}
+
+
+.theme-toggle {
+  margin-top: auto;
+  display: flex;
+  gap: 2px;
+  background: var(--bg-elevated);
+  border-radius: 8px;
+  padding: 2px;
+}
+
+.theme-toggle__btn {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 11px;
+  padding: 6px 0;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.theme-toggle__btn--active {
+  background: var(--accent);
+  color: #fff;
+}
